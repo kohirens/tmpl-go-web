@@ -17,7 +17,7 @@ you run `Get-ChildItem Env:`; you then do one of the following.
 1. Clone this repository.
 2. `cd` into the clone directory and run: `docker-compose up`
 3. Open another command prompt to login to the container: 
-   `docker exec -it {{ .appName }} sh`
+   `docker exec -it {{ .repoName }} sh`
 4. Execute a command such as `go test`
    ```output
    ~/src/github.com/kohirens/stdlib $ go test
