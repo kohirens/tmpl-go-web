@@ -9,7 +9,7 @@ services:
                 USER_GID: '${USER_GID}'
                 USER_GROUP: '${USER_GROUP}'
                 REPO: '${REPO}'
-            dockerfile: '.docker/Dockerfile'
+            dockerfile: '.docker/go/Dockerfile'
             context: '..'
             target: 'dev'
         cap_add:
