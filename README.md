@@ -9,8 +9,9 @@ computer.
 
 You will need to set the `$Env:HOME` environment on Windows before you can start
 the dev environment. It should be the same value as `$Env:USERPROFILE`, or
-what you need it to be. Once you have it set and it shows up in Powershell when
-you run `Get-ChildItem Env:`; you then do one of the following.
+what you need it to be. Once you have it set, and it shows up in Powershell when
+you run `Get-ChildItem Env:`; you then jump to [Run Docker](#run-docker) or
+[Run with VS Code](#run-with-vs-code)
 
 ### Run Docker
 
@@ -28,9 +29,9 @@ you run `Get-ChildItem Env:`; you then do one of the following.
 
 ### Run with VS Code
 
-1. Install the VS code extention "Remote Container".
+1. Install the VS code extension "Remote Container".
 2. Clone this repository locally.
 3. Open the cloned project in VS Code, which should ask to open the folder in a
    remote container.
-4. Open a termianl in VS Code and type `go test`.
+4. Open a terminal in VS Code and type `go test`.
 5. You can now open your IDE and point it to the clone directory and begin coding.
