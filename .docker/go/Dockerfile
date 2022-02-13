@@ -5,14 +5,14 @@ ARG USER_UID
 ARG USER_GID
 ARG USER_GROUP
 ARG REPO
-ARG GLIBC_VER='2.33-r0'
+ARG GLIBC_VER='2.34-r0'
 
 ENV GOPATH="/home/${USER_NAME}"
 ENV CGO_ENABLED=0
 ENV WORK_DIR="/home/${USER_NAME}/src/${REPO}"
 ENV LD_LIBRARY_PATH="/usr/lib:/lib"
 
-COPY .docker/download-vs-code-server.sh .
+COPY ..devcontainer/download-vs-code-server.sh .
 
 # VS Code Requirements: openssh, musl, libgcc, libstdc++
 RUN env && apk --no-progress --purge --no-cache upgrade \

@@ -1,8 +1,12 @@
 {
-    "version": "0.0.1",
+    "version": "0.2.0",
     "variables": {
-        "appName": "Application (code) name, the formal name with capitilization and spaces.",
+        "appName": "Application (code) name, the formal name with capitalization and spaces.",
         "repoName": "Name of the code repository, any acceptable name you can use in a version control system.",
         "repoOrg": "Repository organization, for example `github.com/kohirens`."
-    }
+    },
+    "excludes": [
+        ".chglog/CHANGELOG.tpl.md",
+        ".devcontainer/download-vs-code-server.sh"
+    ]
 }
