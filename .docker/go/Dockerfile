@@ -1,18 +1,18 @@
-FROM golang:1.16-alpine3.13 AS dev
+FROM golang:1.19-alpine3.16 AS dev
 
 ARG USER_NAME
 ARG USER_UID
 ARG USER_GID
 ARG USER_GROUP
 ARG REPO
-ARG GLIBC_VER='2.34-r0'
+ARG GLIBC_VER='2.35-r0'
 
 ENV GOPATH="/home/${USER_NAME}"
 ENV CGO_ENABLED=0
 ENV WORK_DIR="/home/${USER_NAME}/src/${REPO}"
 ENV LD_LIBRARY_PATH="/usr/lib:/lib"
 
-COPY ..devcontainer/download-vs-code-server.sh .
+COPY .devcontainer/download-vs-code-server.sh .
 
 # VS Code Requirements: openssh, musl, libgcc, libstdc++
 RUN env && apk --no-progress --purge --no-cache upgrade \
@@ -23,7 +23,6 @@ RUN env && apk --no-progress --purge --no-cache upgrade \
     libgcc \
     libstdc++ \
     openssh \
-    tini \
  && apk --no-progress --purge --no-cache upgrade \
  && rm -vrf /var/cache/apk/*
 
@@ -63,24 +62,22 @@ RUN mkdir -p /home/${USER_NAME}/.vscode-server/extensions /home/${USER_NAME}/.vs
 
 WORKDIR $WORK_DIR
 
-ENTRYPOINT [ "tini", "--" ]
+ENTRYPOINT [ "sh" ]
 
-CMD [ "tail", "-f", "/dev/null" ]
+CMD [ "start.sh" ]
 
 FROM dev AS build
 
 ENV GOPATH /home/${USER_NAME}
 
 COPY ./ /home/${USER_NAME}/src
-RUN whoami \
- && ls -la .
 
 RUN go build
 
 FROM alpine3.12 AS release
 
-COPY  --chown=${USER_NAME}:$USER_GROUP --from=build /home/${USER_NAME}/bin /usr/local/bin
+COPY  --chown=${USER_NAME}:${USER_GROUP} --from=build /home/${USER_NAME}/bin /usr/local/bin
 
-ENTRYPOINT [ "sh" ]
+ENTRYPOINT [ "{{ .appName }}" ]
 
 CMD [ "" ]
