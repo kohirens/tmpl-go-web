@@ -1,9 +1,10 @@
 {
     "version": "1.0.0",
     "placeholders": {
-        "appName": "Application (code) name, the formal name with capitalization and spaces.",
-        "repoName": "Name of the code repository, any acceptable name you can use in a version control system.",
-        "repoOrg": "Repository organization, for example `github.com/kohirens`."
+        "appName": "Application name, the formal name with capitalization and spaces",
+        "codeName": "Application name to be used with automation, usualy no spaces or capitalization",
+        "repoName": "Name of the code repository, any acceptable name you can use in a version control system",
+        "repoOrg": "Repository organization, for example `github.com/kohirens`"
     },
     "excludes": [
         ".chglog/CHANGELOG.tpl.md",

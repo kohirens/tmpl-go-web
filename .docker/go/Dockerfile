@@ -78,6 +78,6 @@ FROM alpine3.12 AS release
 
 COPY  --chown=${USER_NAME}:${USER_GROUP} --from=build /home/${USER_NAME}/bin /usr/local/bin
 
-ENTRYPOINT [ "{{ .appName }}" ]
+ENTRYPOINT [ "{{ .codeName }}" ]
 
 CMD [ "" ]
