@@ -1,3 +1,10 @@
+ARG USER_NAME='app'
+ARG USER_UID='1000'
+ARG USER_GID='1000'
+ARG USER_GROUP='app_users'
+ARG REPO='{{ .repoOrg }}/{{ .repoName }}'
+ARG GLIBC_VER='2.35-r0'
+
 FROM golang:1.19-alpine3.16 AS dev
 
 ARG USER_NAME
@@ -5,7 +12,7 @@ ARG USER_UID
 ARG USER_GID
 ARG USER_GROUP
 ARG REPO
-ARG GLIBC_VER='2.35-r0'
+ARG GLIBC_VER
 
 ENV GOPATH="/home/${USER_NAME}"
 ENV CGO_ENABLED=0
@@ -13,6 +20,7 @@ ENV WORK_DIR="/home/${USER_NAME}/src/${REPO}"
 ENV LD_LIBRARY_PATH="/usr/lib:/lib"
 
 COPY .devcontainer/download-vs-code-server.sh .
+COPY .docker/start.sh /usr/local/bin/start.sh
 
 # VS Code Requirements: openssh, musl, libgcc, libstdc++
 RUN env && apk --no-progress --purge --no-cache upgrade \
