@@ -1,4 +1,4 @@
-# {{ .appName }}
+# {{.appName}}
 
 [Writing Web Applications](https://golang.org/doc/articles/wiki/)
 
@@ -18,12 +18,12 @@ you run `Get-ChildItem Env:`; you then jump to [Run Docker](#run-docker) or
 1. Clone this repository.
 2. `cd` into the clone directory and run: `docker-compose up`
 3. Open another command prompt to login to the container: 
-   `docker exec -it {{ .repoName }} sh`
+   `docker exec -it {{.codeName}} sh`
 4. Execute a command such as `go test`
    ```output
-   ~/src/github.com/kohirens/stdlib $ go test
+   ~/src/{{.repoOrg}}/{{.codeName}} $ go test
    PASS
-   ok      github.com/kohirens/stdlib      0.004s
+   ok      {{.repoOrg}}/{{.codeName}}      0.004s
    ```
 5. You can now open your IDE and point it to the clone directory and begin coding.
 

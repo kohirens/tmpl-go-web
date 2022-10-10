@@ -2,7 +2,7 @@ ARG USER_NAME='app'
 ARG USER_UID='1000'
 ARG USER_GID='1000'
 ARG USER_GROUP='app_users'
-ARG REPO='{{ .repoOrg }}/{{ .repoName }}'
+ARG REPO='{{.repoOrg}}/{{.codeName}}'
 ARG GLIBC_VER='2.35-r0'
 
 FROM golang:1.19-alpine3.16 AS dev
