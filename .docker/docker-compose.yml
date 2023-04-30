@@ -19,8 +19,6 @@ services:
            - '../:/home/${USER_NAME}/src/${REPO}'
            - '${HOME}/.ssh/known_hosts:/home/${USER_NAME}/.ssh/known_hosts'
            - 'vscode_ext:/home/${USER_NAME}/.vscode-server'
-           - 'vscode_i_ext:/home/${USER_NAME}/.vscode-server-insiders'
 
 volumes:
     vscode_ext: null
-    vscode_i_ext: null
