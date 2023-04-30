@@ -3,21 +3,18 @@ ARG USER_UID='1000'
 ARG USER_GID='1000'
 ARG USER_GROUP='app_users'
 ARG REPO='{{.repoOrg}}/{{.codeName}}'
-ARG GLIBC_VER='2.35-r0'
 
-FROM golang:1.19-alpine3.16 AS dev
+FROM golang:1.20-alpine3.17 AS dev
 
 ARG USER_NAME
 ARG USER_UID
 ARG USER_GID
 ARG USER_GROUP
 ARG REPO
-ARG GLIBC_VER
 
 ENV GOPATH="/home/${USER_NAME}"
 ENV CGO_ENABLED=0
 ENV WORK_DIR="/home/${USER_NAME}/src/${REPO}"
-ENV LD_LIBRARY_PATH="/usr/lib:/lib"
 
 COPY .devcontainer/download-vs-code-server.sh .
 COPY .docker/start.sh /usr/local/bin/start.sh
@@ -33,13 +30,6 @@ RUN env && apk --no-progress --purge --no-cache upgrade \
     openssh \
  && apk --no-progress --purge --no-cache upgrade \
  && rm -vrf /var/cache/apk/*
-
-# Install vanilla GLibC: https://github.com/sgerrand/alpine-pkg-glibc
-RUN curl -o /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
- && curl -LO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-${GLIBC_VER}.apk \
- && apk add glibc-${GLIBC_VER}.apk \
- && rm glibc-${GLIBC_VER}.apk \
-       /etc/apk/keys/sgerrand.rsa.pub
 
 # Add a non-root group and user, helpful if you dev on Linux.
 RUN addgroup --system --gid ${USER_GID} ${USER_GROUP} \
@@ -65,8 +55,7 @@ RUN go get -u -v golang.org/x/tools/gopls \
     github.com/cweill/gotests/...
 
 # VSCode Requirements for pre-installing extensions
-RUN mkdir -p /home/${USER_NAME}/.vscode-server/extensions /home/${USER_NAME}/.vscode-server-insiders/extensions
-#  && chown -R $USER_NAME /home/$USER_NAME/.vscode-server /home/$USER_NAME/.vscode-server-insiders
+RUN mkdir -p /home/${USER_NAME}/.vscode-server/extensions
 
 WORKDIR $WORK_DIR
 
@@ -82,7 +71,7 @@ COPY ./ /home/${USER_NAME}/src
 
 RUN go build
 
-FROM alpine3.12 AS release
+FROM alpine3.17 AS release
 
 COPY  --chown=${USER_NAME}:${USER_GROUP} --from=build /home/${USER_NAME}/bin /usr/local/bin
 

@@ -13,13 +13,12 @@ shutd () {
     printf "done\n"
 }
 
-trap 'shutd' SIGTERM
+trap 'shutd' TERM
 
 echo "Starting up..."
 
 # Run non-blocking commands here
 go mod tidy
-go mod vendor
 
 # This keeps the container running until it receives a signal to be stopped.
 # Also very low CPU usage.
