@@ -6,6 +6,9 @@
         "codeName": "Application name to be used with automation, lowercase alpha-numeric and dashes",
         "repoOrg": "Repository organization, for example `github.com/kohirens`"
     },
+    "skip": [
+        "CHANGELOG.md"
+    ],
     "excludes": [
         ".chglog/CHANGELOG.tpl.md",
         ".devcontainer/download-vs-code-server.sh"
